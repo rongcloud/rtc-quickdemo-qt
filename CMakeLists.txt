@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(rtc-quickdemo-qt VERSION 0.1 LANGUAGES CXX)
+set(TARGET_NAME rtc_quickdemo_qt)
+project(${TARGET_NAME} VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -13,6 +14,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 if (WIN32)
+    add_compile_options(/wd4819)
+    add_compile_options(/wd4996)
     if(CMAKE_SIZEOF_VOID_P EQUAL 8) #检测 windows 32/64
         set(RTC_LIBS_PATH ${CMAKE_SOURCE_DIR}/sdk/lib/win/x64)
     elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -31,22 +34,31 @@ set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
+        mix_streams_layout.cpp
+        mix_streams_layout.h
+        nlohmann_json.hpp
         remoteuserui.cpp
         remoteuserui.h
         remoteuserui.ui
         mainwindow.ui
+        meeting.cpp
+        meeting.h
+        meeting.ui
+        live.cpp
+        live.h
+        live.ui
 )
 
-add_executable(rtc-quickdemo-qt
+add_executable(${TARGET_NAME}
     ${PROJECT_SOURCES}
 )
 
-target_link_directories(rtc-quickdemo-qt
+target_link_directories(${TARGET_NAME}
     PRIVATE
     ${RTC_LIBS_PATH}
     )
 
-target_include_directories(rtc-quickdemo-qt
+target_include_directories(${TARGET_NAME}
     PRIVATE
     ${RTC_INCLUDE_PATH} #通用头文件
     ${RTC_INCLUDE_PATH}/im #IM 头文件
@@ -74,7 +86,7 @@ if (WIN32)
          )
  endif(WIN32)
 
-target_link_libraries(rtc-quickdemo-qt
+target_link_libraries(${TARGET_NAME}
     PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     ${LINK_LIBS}

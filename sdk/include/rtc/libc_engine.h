@@ -122,6 +122,43 @@ rcrtc_unsubscribe_streams(const char* room_id,
                           HANDLE context);
 
 /**
+ * @brief 订阅流，分别订阅大流、小流
+ * 一个流的句柄只能存入大流和小流其中一个数组，不能两个数组都包含此流的句柄
+ *
+ * @param room_id       房间 id
+ * @param streams       大流的句柄数组，订阅这些流
+ * @param tiny_streams  小流的句柄数组，订阅这些流
+ * @param callback      回调函数指针
+ * @param context       用户传入的上下文参数值，用于回调函数
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API int32_t
+rcrtc_subscribe_stream(const char* room_id,
+                       HANDLE_STREAM streams[MAX_STREAM_COUNT],
+                       HANDLE_STREAM tiny_streams[MAX_STREAM_COUNT],
+                       fn_rcrtc_stream_callback callback,
+                       HANDLE context);
+
+/**
+ * @brief 取消订阅流
+ *
+ * @param room_id         房间 id
+ * @param streams         流句柄数组，取消这些流的订阅
+ * @param callback        取消订阅回调函数指针
+ * @param context         用户传入的上下文参数值，用于回调函数
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API int32_t
+rcrtc_unsubscribe_stream(const char* room_id,
+                         HANDLE_STREAM streams[MAX_STREAM_COUNT],
+                         fn_rcrtc_stream_callback callback,
+                         HANDLE context);
+
+/**
  * @brief 获取默认的视频流
  *
  * @return 成功获取视频流时，返回的句柄非空，否则返回 NULL。
@@ -235,6 +272,61 @@ RCRTCLIB_API
 int32_t rcrtc_unpublish_streams(HANDLE_STREAM streams[MAX_STREAM_COUNT],
                                 fn_rcrtc_general_callback callback,
                                 HANDLE context);
+
+/**
+ * @brief 发布流
+ *
+ * @param callback  发布流的回调函数指针
+ * @param context   用户传入的上下文参数值，用于回调函数
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API int32_t
+rcrtc_publish_default_stream(fn_rcrtc_stream_callback callback, HANDLE context);
+
+/**
+ * @brief 取消发布流
+ *
+ * @param room_id  房间 id
+ * @param callback 回调函数指针
+ * @param context  用户传入的上下文参数值，用于回调函数
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API int32_t
+rcrtc_unpublish_default_stream(fn_rcrtc_stream_callback callback,
+                               HANDLE context);
+
+/**
+ * @brief 发布自定义流
+ *
+ * @param streams   用户创建的本地自定义流
+ * @param callback  发布流的回调函数指针
+ * @param context   用户传入的上下文参数值，用于回调函数
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API
+int32_t rcrtc_publish_stream(HANDLE_STREAM streams[MAX_STREAM_COUNT],
+                             fn_rcrtc_stream_callback callback,
+                             HANDLE context);
+/**
+ * @brief 取消发布自定义流
+ *
+ * @param streams  用户创建的本地自定义流
+ * @param callback 回调函数指针
+ * @param context  用户传入的上下文参数值，用于回调函数
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API
+int32_t rcrtc_unpublish_stream(HANDLE_STREAM streams[MAX_STREAM_COUNT],
+                               fn_rcrtc_stream_callback callback,
+                               HANDLE context);
 
 /**
  * @brief 加入房间
@@ -376,9 +468,38 @@ rcrtc_register_local_pcm_data_callback(rcrtc_pcm_audio_data_cb_func callback);
  * - 0：成功
  * - -1：失败
  */
-RCRTCLIB_API int32_t
-rcrtc_get_version(char* version, uint32_t version_size);
+RCRTCLIB_API int32_t rcrtc_get_version(char* version, uint32_t version_size);
 
+/**
+ * @brief 获取当前通话的唯一标识。此sessionID会在调用
+          ::rcrtc_join_room 接口成功后，由服务器返回。
+ * 每加入一次房间，即使两次房间号一致，此sessionID也不同。
+ *
+ * @param room_id       房间 id
+ * @param session_id    结果返回
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API int32_t rcrtc_room_get_session_id(const char* room_id,
+                                               char session_id[MAX_STRING_LEN]);
+
+/**
+ * @brief 直播设置合流布局
+ *
+ * @param room_id       房间 id
+ * @param layout       合流布局的json字符串
+ * @param callback      回调函数指针
+ * @param context       用户传入的上下文参数值，用于回调函数
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API int32_t
+rcrtc_set_mix_stream_config(const char* room_id,
+                            const char* config,
+                            fn_rcrtc_general_json_callback callback,
+                            HANDLE context);
 
 #ifdef __cplusplus
 }

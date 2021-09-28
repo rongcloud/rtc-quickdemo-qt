@@ -66,6 +66,22 @@ rcrtc_remote_user_get_streams(const char* room_id,
                               HANDLE_STREAM stream[MAX_STREAM_COUNT],
                               int32_t* count);
 
+/**
+ * @brief 获取直播流（mcu的合流）
+ *
+ * @param room_id  房间 id
+ * @param stream   发布的音视频直播合流集合（包括音视频流）
+ * @param count    音视频流集合的个数
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API int32_t
+rcrtc_get_live_streams(const char* room_id,
+                       char live_user_id[MAX_STRING_LEN],
+                       HANDLE_STREAM stream[MAX_STREAM_COUNT],
+                       int32_t* count);
+
 #ifdef __cplusplus
 }
 #endif

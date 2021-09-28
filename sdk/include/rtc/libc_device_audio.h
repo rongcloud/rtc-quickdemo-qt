@@ -33,8 +33,7 @@ extern "C" {
  * - 0：成功
  * - -1：失败
  */
-RCRTCLIB_API int32_t
-rcrtc_audio_device_init(enum_rcrtc_audio_layer audio_layer);
+RCRTCLIB_API int32_t rcrtc_audio_device_init();
 
 /**
  * @brief 全局反初始化音频设备麦克风和扬声器设备环境

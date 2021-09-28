@@ -44,6 +44,17 @@ RCIMLIB_API HANDLE_IM_ENGINE rcim_init(const char* app_key,
 RCIMLIB_API int rcim_uninit(HANDLE_IM_ENGINE engine);
 
 /**
+ * @brief  rcim_get_version 获取 im sdk 版本号  必须在 rcim_init 之后调用
+ * @param version  sdk 版本
+ * @return
+ * - RCIM_OK 成功
+ * - RCIM_ERROR 错误
+ */
+RCIMLIB_API int rcim_get_version(HANDLE_IM_ENGINE engine,
+                                 char* version,
+                                 uint32_t version_size);
+
+/**
  * @brief 持续返回与服务器的连接状态
  * @param engine                            引擎句柄
  * @param cb                                回调函数指针
@@ -237,6 +248,20 @@ RCIMLIB_API int rcim_save_text_message_draft(HANDLE_IM_ENGINE engine,
 RCIMLIB_API int rcim_clear_text_message_draft(HANDLE_IM_ENGINE engine,
                                               rc_conversation_type conv_type,
                                               const char* target_id);
+
+/**
+ * @brief 获取当前用户的 id
+ * @param  engine                      引擎句柄
+ * @param  user_id                     用户 id
+ * @param  user_id_size                用户 id 长度
+ * @return
+ * - RCIM_OK 成功
+ * - RCIM_ERROR 错误
+ * 具体错误码描述信息参见 \ref rc_message_error_code 定义
+ */
+RCIMLIB_API int rcim_get_user_id(HANDLE_IM_ENGINE engine,
+                                 char* user_id,
+                                 uint32_t user_id_size);
 
 #ifdef __cplusplus
 }

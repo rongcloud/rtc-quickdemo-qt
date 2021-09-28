@@ -112,6 +112,29 @@ rcrtc_video_capture_get_orientation(HANDLE_DEVICE_INFO handle,
                                     const char* device_unique_id_utf8,
                                     enum_rcrtc_video_rotation* orientation);
 
+/**
+ * @brief 设置本地设备视频渲染窗口
+ *
+ * @param canvas  设置本地设备视频渲染窗口所需的参数
+ * @return
+ * - 0：成功
+ * - -1：失败
+ *
+ */
+RCRTCLIB_API int32_t
+rcrtc_video_capture_attach_local_video(rcrtc_video_canvas_t* canvas);
+
+/**
+ * @brief 取消设置本地设备视频渲染窗口
+ *
+ * @param rc_view  取消设置本地设备视频渲染窗口所需的参数
+ * @return
+ * - 0：成功
+ * - -1：失败
+ *
+ */
+RCRTCLIB_API int32_t rcrtc_video_capture_dettach_local_video(RCView rc_view);
+
 /*
  * *********************************************************
  * 摄像头视频采集输入使能函数
@@ -149,6 +172,31 @@ RCRTCLIB_API int32_t rcrtc_switch_video(const uint32_t device_index);
  * - -1：失败
  */
 RCRTCLIB_API int32_t rcrtc_disable_video();
+
+/**
+ * @brief 重新设置stream_handle对应视频设备的最大帧率
+ *
+ * @param stream_handle 要设置最大帧率的流句柄
+ * @param max_fps		要设置的最大帧率
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API int32_t rcrtc_set_video_fps(HANDLE_STREAM stream_handle,
+                                         enum_rcrtc_video_frame_rate max_fps);
+
+/**
+ * @brief 重新设置stream_handle对应视频设备的分辨率
+ *
+ * @param stream_handle 要设置分辨率的流句柄
+ * @param max_fps		要设置的分辨率
+ * @return
+ * - 0：成功
+ * - -1：失败
+ */
+RCRTCLIB_API int32_t
+rcrtc_set_video_resolution(HANDLE_STREAM stream_handle,
+                           enum_rcrtc_video_resolution resolution);
 
 #ifdef __cplusplus
 }

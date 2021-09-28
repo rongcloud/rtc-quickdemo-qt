@@ -42,10 +42,13 @@ typedef void* HANDLE_RTC_ENGINE;
  */
 typedef void* HANDLE_STREAM;
 /**
+ * 音视频自定义流句柄
+ */
+typedef void* HANDLE_AUDIO_MIXER_CHANNEL;
+/**
  * 视频渲染句柄
  */
 typedef void* HANDLE_VIDEO_RENDER;
-
 
 /**
  * 屏幕共享窗口句柄
@@ -333,6 +336,11 @@ typedef struct rcrtc_config_t {
    *  true 启用，false 禁用，默认启用
    */
   bool enable_tiny_stream;
+
+  /**
+   * 音频设备平台类型
+   */
+  enum_rcrtc_audio_layer audio_layer;
 } rcrtc_config_t;
 
 typedef enum enum_rcrtc_video_fill_mode {
@@ -556,6 +564,17 @@ typedef struct rcrtc_video_stream_config_t {
 typedef void (*fn_rcrtc_general_callback)(enum_rcrtc_code code, HANDLE context);
 
 /**
+ * @brief 通用回调函数定义
+ * @param code                          结果码
+ * @param context                       用户传入的上下文参数值，用于回调函数
+ * @param streams                       用户传入的流句柄
+ */
+typedef void (*fn_rcrtc_stream_callback)(
+    enum_rcrtc_code code,
+    HANDLE context,
+    HANDLE_STREAM streams[MAX_STREAM_COUNT]);
+
+/**
  * @brief 带json结构结果返回值回调函数原型
  * @param code                          结果码
  * @param json                          json结构
@@ -568,6 +587,8 @@ typedef void (*fn_rcrtc_general_json_callback)(enum_rcrtc_code code,
 /**
  * @brief 加入房间的回调函数定义
  *
+ * @param room_id  房间 id
+ * @param code     结果码
  * @param context 用户传入的上下文参数值，用于回调函数
  */
 typedef void (*fn_rcrtc_join_room_callback)(const char* room_id,
@@ -580,6 +601,7 @@ typedef void (*fn_rcrtc_join_room_callback)(const char* room_id,
  * @param room_id         房间 id
  * @param remote_user_id  远端用户 id
  * @param event           事件类型
+ * @param event_param     事件参数
  * @param stream          远端流句柄
  * @param context         用户传入的上下文参数值，用于回调函数
  */
@@ -602,7 +624,7 @@ typedef void (*fn_rcrtc_remote_stream_callback)(const char* room_id,
 typedef void (*fn_rcrtc_user_quality_callback)(
     const char* room_id,
     const rcrtc_quality_t* local_quality,
-    const rcrtc_quality_t* remote_qualitys,
+    const rcrtc_quality_t* remote_quality,
     int32_t remote_count,
     HANDLE context);
 
@@ -610,7 +632,7 @@ typedef void (*fn_rcrtc_user_quality_callback)(
  * @brief 音频音量大小
  *
  * @param room_id         房间 id
- * @param remote_quality  远端用户音视频质量
+ * @param remote_vol      远端用户音频质量
  * @param remote_count    远端用户个数
  * @param context         用户传入的上下文参数值，用于回调函数
  */
@@ -642,7 +664,8 @@ typedef void (*fn_rcrtc_room_event_callback)(const char* room_id,
  * @param frame       编码视频流二进制数据
  * @param frame_size  视频数据大小
  * @param frame_width 视频分辨率的宽
- * @param frame_height视频分辨率的高
+ * @param frame_height 视频分辨率的高
+ * @param timestamp 视频帧的时间戳
  */
 typedef void (*fn_rcrtc_encoded_video_frame_callback)(const char* user_id,
                                                       const uint8_t* frame,
@@ -710,12 +733,12 @@ typedef void (*fn_rcrtc_spk_test_callback)(int32_t value, HANDLE context);
  * @brief pcm 数据回调
  rcrtc_pcm_register_recording_data_callback 和
  rcrtc_pcm_register_play_data_callback 函数设置的回调函数类型
+
  * @param[in] data                       音频数据
  * @param[in] size                       音频数据字节长度
  * @param[in] sample_rate                音频数据的采样率
  * @param[in] sample_bits                音频数据采样点数据大小（目前是2字节）
  * @param[in] channels                   音频数据的通道数
- * @return void                          无
  */
 typedef void (*rcrtc_pcm_audio_data_cb_func)(uint8_t* data,
                                              uint32_t size,

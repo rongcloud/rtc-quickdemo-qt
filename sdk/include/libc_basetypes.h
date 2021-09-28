@@ -10,11 +10,8 @@
 #ifndef RC_LIBC_BASETYPES_H_
 #define RC_LIBC_BASETYPES_H_
 
-#include <sys/types.h>
-
-#ifndef _MSC_VER
 #include <stdint.h>
-#endif
+#include <sys/types.h>
 
 /* define int types*/
 #if defined(__GNUC__)
