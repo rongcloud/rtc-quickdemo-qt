@@ -1,13 +1,12 @@
 /**
- * Copyright © 2021, RongCloud.
- * All rights reserved.
+ * Copyright © 2022, RongCloud. All rights reserved.
  *
  * All the contents are the copyright of RongCloud Network Technology Co.Ltd.
  * Unless otherwise credited. http://rongcloud.cn
  *
  */
-#ifndef IMLIB_API_RCIM_CHATROOM_H_
-#define IMLIB_API_RCIM_CHATROOM_H_
+#ifndef IMLIB_API_RCIM_CHATROOM_H
+#define IMLIB_API_RCIM_CHATROOM_H
 
 #include "rcim_callback.h"
 
@@ -30,11 +29,11 @@ extern "C" {
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_join_chatroom(HANDLE_IM_ENGINE engine,
-                                   const char* room_id,
-                                   int history_messages_count,
-                                   rcim_general_callback cb,
-                                   HANDLE context);
+RCIMLIB_API int32_t rcim_join_chatroom(HANDLE_IM_ENGINE engine,
+                                       const char* room_id,
+                                       int32_t history_messages_count,
+                                       rcim_general_callback cb,
+                                       HANDLE context);
 
 /**
  * @brief 退出聊天室
@@ -47,10 +46,10 @@ RCIMLIB_API int rcim_join_chatroom(HANDLE_IM_ENGINE engine,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_quit_chatroom(HANDLE_IM_ENGINE engine,
-                                   const char* room_id,
-                                   rcim_general_callback cb,
-                                   HANDLE context);
+RCIMLIB_API int32_t rcim_quit_chatroom(HANDLE_IM_ENGINE engine,
+                                       const char* room_id,
+                                       rcim_general_callback cb,
+                                       HANDLE context);
 
 /**
  * @brief 加入已经存在的聊天室
@@ -67,11 +66,11 @@ RCIMLIB_API int rcim_quit_chatroom(HANDLE_IM_ENGINE engine,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_join_exist_chatroom(HANDLE_IM_ENGINE engine,
-                                         const char* room_id,
-                                         int history_messages_count,
-                                         rcim_general_callback cb,
-                                         HANDLE context);
+RCIMLIB_API int32_t rcim_join_exist_chatroom(HANDLE_IM_ENGINE engine,
+                                             const char* room_id,
+                                             int32_t history_messages_count,
+                                             rcim_general_callback cb,
+                                             HANDLE context);
 
 /**
  * @brief 获取聊天室信息
@@ -88,12 +87,12 @@ RCIMLIB_API int rcim_join_exist_chatroom(HANDLE_IM_ENGINE engine,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_get_chatroom_info(HANDLE_IM_ENGINE engine,
-                                       const char* room_id,
-                                       int count,
-                                       enum rc_chatroom_user_order order,
-                                       rcim_get_chatroom_info_callback cb,
-                                       HANDLE context);
+RCIMLIB_API int32_t rcim_get_chatroom_info(HANDLE_IM_ENGINE engine,
+                                           const char* room_id,
+                                           int32_t count,
+                                           enum rc_chatroom_user_order order,
+                                           rcim_get_chatroom_info_callback cb,
+                                           HANDLE context);
 
 /**
  * @brief  从服务器端获取聊天室的历史消息
@@ -112,11 +111,11 @@ RCIMLIB_API int rcim_get_chatroom_info(HANDLE_IM_ENGINE engine,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_get_remote_chatroom_history_messages(
+RCIMLIB_API int32_t rcim_get_remote_chatroom_history_messages(
     HANDLE_IM_ENGINE engine,
     const char* room_id,
-    long long begin,
-    unsigned count,
+    int64_t begin,
+    uint32_t count,
     enum rc_chatroom_messages_order order,
     rcim_get_remote_chatroom_history_messages_callback cb,
     HANDLE context);
@@ -131,10 +130,10 @@ RCIMLIB_API int rcim_get_remote_chatroom_history_messages(
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_register_chatroom_status_listener(
-    HANDLE_IM_ENGINE engine,
-    rcim_chatroom_status_listener cb,
-    HANDLE context);
+RCIMLIB_API int32_t
+rcim_register_chatroom_status_listener(HANDLE_IM_ENGINE engine,
+                                       rcim_chatroom_status_listener cb,
+                                       HANDLE context);
 
 /**
  * @brief 设置聊天室的状态信息
@@ -154,15 +153,15 @@ RCIMLIB_API int rcim_register_chatroom_status_listener(
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_set_chatroom_entry(HANDLE_IM_ENGINE engine,
-                                        const char* room_id,
-                                        const char* key,
-                                        const char* value,
-                                        bool auto_delete,
-                                        bool send_notification,
-                                        const char* notify_string,
-                                        rcim_general_callback cb,
-                                        HANDLE context);
+RCIMLIB_API int32_t rcim_set_chatroom_entry(HANDLE_IM_ENGINE engine,
+                                            const char* room_id,
+                                            const char* key,
+                                            const char* value,
+                                            bool auto_delete,
+                                            bool send_notification,
+                                            const char* notify_string,
+                                            rcim_general_callback cb,
+                                            HANDLE context);
 
 /**
  * @brief  强制设置聊天室自定义属性
@@ -182,15 +181,15 @@ RCIMLIB_API int rcim_set_chatroom_entry(HANDLE_IM_ENGINE engine,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_force_set_chatroom_entry(HANDLE_IM_ENGINE engine,
-                                              const char* room_id,
-                                              const char* key,
-                                              const char* value,
-                                              bool auto_delete,
-                                              bool send_notification,
-                                              const char* notify_string,
-                                              rcim_general_callback cb,
-                                              HANDLE context);
+RCIMLIB_API int32_t rcim_force_set_chatroom_entry(HANDLE_IM_ENGINE engine,
+                                                  const char* room_id,
+                                                  const char* key,
+                                                  const char* value,
+                                                  bool auto_delete,
+                                                  bool send_notification,
+                                                  const char* notify_string,
+                                                  rcim_general_callback cb,
+                                                  HANDLE context);
 
 /**
  * @brief 获取聊天室 key/value 状态列表
@@ -206,10 +205,10 @@ RCIMLIB_API int rcim_force_set_chatroom_entry(HANDLE_IM_ENGINE engine,
  * @note  返回的status_list指向的指针如果有值，需要调用
  *               ::rcim_free_data_info_array 函数来释放。
  */
-RCIMLIB_API int rcim_get_all_chatroom_entries(HANDLE_IM_ENGINE engine,
-                                              const char* room_id,
-                                              rc_data_info** status_list,
-                                              int* count);
+RCIMLIB_API int32_t rcim_get_all_chatroom_entries(HANDLE_IM_ENGINE engine,
+                                                  const char* room_id,
+                                                  rc_data_info** status_list,
+                                                  int32_t* count);
 
 /**
  * @brief 获取聊天室 key/value 状态列表
@@ -225,10 +224,10 @@ RCIMLIB_API int rcim_get_all_chatroom_entries(HANDLE_IM_ENGINE engine,
  * @note  返回的 status_info 指向的指针如果有值，需要调用
  *               ::rcim_free_data_info 函数来释放。
  */
-RCIMLIB_API int rcim_get_chatroom_entry_by_key(HANDLE_IM_ENGINE engine,
-                                               const char* room_id,
-                                               const char* key,
-                                               rc_data_info** status_info);
+RCIMLIB_API int32_t rcim_get_chatroom_entry_by_key(HANDLE_IM_ENGINE engine,
+                                                   const char* room_id,
+                                                   const char* key,
+                                                   rc_data_info** status_info);
 
 /**
  * @brief 删除聊天室的某个状态值
@@ -246,13 +245,13 @@ RCIMLIB_API int rcim_get_chatroom_entry_by_key(HANDLE_IM_ENGINE engine,
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
 
-RCIMLIB_API int rcim_delete_chatroom_entry(HANDLE_IM_ENGINE engine,
-                                           const char* room_id,
-                                           const char* key,
-                                           bool send_notification,
-                                           const char* notify_string,
-                                           rcim_general_callback cb,
-                                           HANDLE context);
+RCIMLIB_API int32_t rcim_delete_chatroom_entry(HANDLE_IM_ENGINE engine,
+                                               const char* room_id,
+                                               const char* key,
+                                               bool send_notification,
+                                               const char* notify_string,
+                                               rcim_general_callback cb,
+                                               HANDLE context);
 
 /**
  * @brief 强制删除聊天室的某个状态值
@@ -270,13 +269,13 @@ RCIMLIB_API int rcim_delete_chatroom_entry(HANDLE_IM_ENGINE engine,
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
 
-RCIMLIB_API int rcim_force_delete_chatroom_entry(HANDLE_IM_ENGINE engine,
-                                                 const char* room_id,
-                                                 const char* key,
-                                                 bool send_notification,
-                                                 const char* notify_string,
-                                                 rcim_general_callback cb,
-                                                 HANDLE context);
+RCIMLIB_API int32_t rcim_force_delete_chatroom_entry(HANDLE_IM_ENGINE engine,
+                                                     const char* room_id,
+                                                     const char* key,
+                                                     bool send_notification,
+                                                     const char* notify_string,
+                                                     rcim_general_callback cb,
+                                                     HANDLE context);
 #ifdef __cplusplus
 }
 #endif

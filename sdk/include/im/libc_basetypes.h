@@ -1,14 +1,12 @@
 /**
- * Copyright © 2021, RongCloud.
- * All rights reserved.
+ * Copyright © 2022, RongCloud. All rights reserved.
  *
  * All the contents are the copyright of RongCloud Network Technology Co.Ltd.
  * Unless otherwise credited. http://rongcloud.cn
  *
  */
-
-#ifndef RC_LIBC_BASETYPES_H_
-#define RC_LIBC_BASETYPES_H_
+#ifndef RC_LIBC_BASETYPES_H
+#define RC_LIBC_BASETYPES_H
 
 #include <stdint.h>
 #include <sys/types.h>

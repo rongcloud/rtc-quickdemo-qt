@@ -6,7 +6,7 @@ QT 5.15.2 MSVC2019
 
 ##### 导入工程
 
-QtCreator 点击 文件 -> 打开文件或项目。定位 rtc_quick_demo 目录，打开 CMakeList.txt 文件，导入工程。
+QtCreator 点击 文件 -> 打开文件或项目。定位 rtc_quick_demo 目录，打开 CMakeList.txt 文件，导入工程，工程为release版本。
 
 
 

@@ -1,13 +1,12 @@
 /**
- * Copyright © 2021, RongCloud.
- * All rights reserved.
+ * Copyright © 2022, RongCloud. All rights reserved.
  *
  * All the contents are the copyright of RongCloud Network Technology Co.Ltd.
  * Unless otherwise credited. http://rongcloud.cn
  *
  */
-#ifndef IMLIB_API_RCIM_CONSTANTS_H_
-#define IMLIB_API_RCIM_CONSTANTS_H_
+#ifndef IMLIB_API_RCIM_CONSTANTS_H
+#define IMLIB_API_RCIM_CONSTANTS_H
 
 #include "libc_common.h"
 
@@ -36,6 +35,10 @@ typedef enum rc_connection_status {
    * 连接成功
    */
   RCIM_CONNECTION_CONNECTED = 0,
+  /**
+   * 重新连接成功
+   */
+  RCIM_CONNECTION_RECONNECTED = 1,
   /**
    * 账号在其他设备上登录，此设备被踢下线
    */

@@ -1,13 +1,13 @@
 /**
- * Copyright © 2021, RongCloud.
+ * Copyright © 2022, RongCloud.
  * All rights reserved.
  *
  * All the contents are the copyright of RongCloud Network Technology Co.Ltd.
  * Unless otherwise credited. http://rongcloud.cn
  *
  */
-#ifndef IMLIB_API_RCIM_STRUCTURE_H_
-#define IMLIB_API_RCIM_STRUCTURE_H_
+#ifndef IMLIB_API_RCIM_STRUCTURE_H
+#define IMLIB_API_RCIM_STRUCTURE_H
 
 #include "rcim_constants.h"
 
@@ -21,8 +21,8 @@ typedef struct rc_data_info {
 } rc_data_info;
 
 typedef struct rc_chatroom_user_info {
-  char* user_id;        //用户 id
-  long long join_time;  //用户加入聊天室的时间
+  char* user_id;      //用户 id
+  int64_t join_time;  //用户加入聊天室的时间
 } rc_chatroom_user_info;
 
 typedef struct rc_user_info {
@@ -35,7 +35,7 @@ typedef struct rc_user_info {
 typedef struct rc_mentioned_info {
   rc_mentioned_type type;  //消息类型
   char** user_ids;         //消息用户 id 列表
-  int user_ids_len;        //消息用户 id 列表长度
+  int32_t user_ids_len;    //消息用户 id 列表长度
   char* content;           //消息内容
 } rc_mentioned_info;
 
@@ -44,7 +44,7 @@ struct rc_message_content;
 typedef void (*fn_rcim_message_content_encoder)(
     struct rc_message_content* message,
     char buffer[],
-    int* buf_len,
+    int32_t* buf_len,
     bool* success);
 
 typedef void (*fn_rcim_message_content_decoder)(struct rc_message_content*,
@@ -87,7 +87,7 @@ typedef struct rc_message_content {
   char* extra;                  //用于扩展
   char* object_name;
 
-  int persistent;  //消息的类型标记，@ref rc_message_persistent
+  int32_t persistent;  //消息的类型标记，@ref rc_message_persistent
 
   t_message_content_vtable vtable;
 } rc_message_content;
@@ -112,7 +112,7 @@ typedef struct rc_message {
 typedef struct rc_text_message {
   rc_message_content content;
   char* text;
-  int burn_duration;  //存续时长
+  int32_t burn_duration;  //存续时长
 } rc_text_message;
 
 /**
@@ -149,12 +149,12 @@ RCIMLIB_API void rcim_free_data_info(rc_data_info** data);
  * @param count             表示有多少数据项要释放
  */
 RCIMLIB_API void rcim_free_data_info_array(rc_data_info** data_array,
-                                           int count);
+                                           int32_t count);
 
 RCIMLIB_API void rcim_free_user_info(rc_user_info** user);
 
 RCIMLIB_API void rcim_free_user_info_array(rc_user_info** user_array,
-                                           int count);
+                                           int32_t count);
 /*
  **********************************************************
  * alloc/free/copy functions for message structures
@@ -190,7 +190,8 @@ RCIMLIB_API void rcim_free_message(rc_message** message);
  * @param count             表示指针数组的长度
  * @note  函数调用成功后，message_array 指向的指针值被修改为 NULL
  */
-RCIMLIB_API void rcim_free_message_array(rc_message** message_array, int count);
+RCIMLIB_API void rcim_free_message_array(rc_message** message_array,
+                                         int32_t count);
 /**
  * @brief
  * 复制消息内容到目标消息结构，传入的两个消息结构指针必须都指向相同的消息类型

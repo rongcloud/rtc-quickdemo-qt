@@ -1,13 +1,12 @@
 /**
- * Copyright © 2021, RongCloud.
- * All rights reserved.
+ * Copyright © 2022, RongCloud. All rights reserved.
  *
  * All the contents are the copyright of RongCloud Network Technology Co.Ltd.
  * Unless otherwise credited. http://rongcloud.cn
  *
  */
-#ifndef IMLIB_API_RCIM_CALLBACK_H_
-#define IMLIB_API_RCIM_CALLBACK_H_
+#ifndef IMLIB_API_RCIM_CALLBACK_H
+#define IMLIB_API_RCIM_CALLBACK_H
 
 #include "rcim_structure.h"
 
@@ -32,7 +31,7 @@ typedef void (*rcim_connection_callback)(HANDLE context,
  */
 typedef void (*rcim_send_message_callback)(HANDLE context,
                                            const struct rc_message* message,
-                                           int code);
+                                           int32_t code);
 
 /**
  * @brief 接收消息回调函数
@@ -44,7 +43,7 @@ typedef void (*rcim_send_message_callback)(HANDLE context,
  */
 typedef void (*rcim_recv_message_callback)(HANDLE context,
                                            const struct rc_message* message,
-                                           int left,
+                                           int32_t left,
                                            bool offline,
                                            bool has_more);
 
@@ -55,7 +54,7 @@ typedef void (*rcim_recv_message_callback)(HANDLE context,
  * @param error_description             错误描述
  */
 typedef void (*rcim_general_callback)(HANDLE context,
-                                      int code,
+                                      int32_t code,
                                       const char* error_description);
 
 /**
@@ -69,10 +68,10 @@ typedef void (*rcim_general_callback)(HANDLE context,
  */
 typedef void (*rcim_get_remote_chatroom_history_messages_callback)(
     HANDLE context,
-    int code,
+    int32_t code,
     const char* room_id,
     rc_message** messages,
-    int count,
+    int32_t count,
     bool has_more);
 
 /**
@@ -83,11 +82,11 @@ typedef void (*rcim_get_remote_chatroom_history_messages_callback)(
  * @param users 获取的成员 id 和加入时间
  * @param count 获取的成员数
  */
-typedef void (*rcim_get_chatroom_info_callback)(int code,
+typedef void (*rcim_get_chatroom_info_callback)(int32_t code,
                                                 const char* room_id,
-                                                int member_count,
+                                                int32_t member_count,
                                                 rc_chatroom_user_info* users,
-                                                int count);
+                                                int32_t count);
 
 typedef enum {
   RCIM_CHATROOM_ID_EVENT = 1,         // 同步聊天室 kv 数据
@@ -105,7 +104,7 @@ typedef enum {
  */
 typedef void (*rcim_chatroom_status_listener)(const char* room_id,
                                               char** status_kv,
-                                              int kv_size,
+                                              int32_t kv_size,
                                               enum_chatroom_status_event event);
 
 #ifdef __cplusplus

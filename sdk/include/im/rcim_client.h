@@ -1,13 +1,12 @@
 /**
- * Copyright © 2021, RongCloud.
- * All rights reserved.
+ * Copyright © 2022, RongCloud. All rights reserved.
  *
  * All the contents are the copyright of RongCloud Network Technology Co.Ltd.
  * Unless otherwise credited. http://rongcloud.cn
  *
  */
-#ifndef IMLIB_API_RCIM_CLIENT_H_
-#define IMLIB_API_RCIM_CLIENT_H_
+#ifndef IMLIB_API_RCIM_CLIENT_H
+#define IMLIB_API_RCIM_CLIENT_H
 
 #include "rcim_callback.h"
 
@@ -31,7 +30,7 @@ extern "C" {
 RCIMLIB_API HANDLE_IM_ENGINE rcim_init(const char* app_key,
                                        const char* navi_url,
                                        const char* conf_path,
-                                       int* error);
+                                       int32_t* error);
 
 /**
  * @brief 释放 rcim_init 返回的句柄，此函数必须是最后调用的 rcim sdk 函数
@@ -41,7 +40,7 @@ RCIMLIB_API HANDLE_IM_ENGINE rcim_init(const char* app_key,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_uninit(HANDLE_IM_ENGINE engine);
+RCIMLIB_API int32_t rcim_uninit(HANDLE_IM_ENGINE engine);
 
 /**
  * @brief  rcim_get_version 获取 im sdk 版本号  必须在 rcim_init 之后调用
@@ -50,9 +49,9 @@ RCIMLIB_API int rcim_uninit(HANDLE_IM_ENGINE engine);
  * - RCIM_OK 成功
  * - RCIM_ERROR 错误
  */
-RCIMLIB_API int rcim_get_version(HANDLE_IM_ENGINE engine,
-                                 char* version,
-                                 uint32_t version_size);
+RCIMLIB_API int32_t rcim_get_version(HANDLE_IM_ENGINE engine,
+                                     char* version,
+                                     uint32_t version_size);
 
 /**
  * @brief 持续返回与服务器的连接状态
@@ -64,9 +63,9 @@ RCIMLIB_API int rcim_get_version(HANDLE_IM_ENGINE engine,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_set_connection_callback(HANDLE_IM_ENGINE engine,
-                                             rcim_connection_callback cb,
-                                             HANDLE context);
+RCIMLIB_API int32_t rcim_set_connection_callback(HANDLE_IM_ENGINE engine,
+                                                 rcim_connection_callback cb,
+                                                 HANDLE context);
 
 /**
  * @brief 连接融云服务器,必须连接成功才能进行其它操作
@@ -78,7 +77,8 @@ RCIMLIB_API int rcim_set_connection_callback(HANDLE_IM_ENGINE engine,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_connect(HANDLE_IM_ENGINE engine, const char* user_token);
+RCIMLIB_API int32_t rcim_connect(HANDLE_IM_ENGINE engine,
+                                 const char* user_token);
 
 /**
  * @brief 断开与融云服务器连接.
@@ -88,7 +88,7 @@ RCIMLIB_API int rcim_connect(HANDLE_IM_ENGINE engine, const char* user_token);
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_disconnect(HANDLE_IM_ENGINE engine);
+RCIMLIB_API int32_t rcim_disconnect(HANDLE_IM_ENGINE engine);
 
 /**
  * @brief 设置接收消息的回调函数
@@ -99,9 +99,10 @@ RCIMLIB_API int rcim_disconnect(HANDLE_IM_ENGINE engine);
  * - RCIM_OK 成功
  * - RCIM_ERROR 错误
  */
-RCIMLIB_API int rcim_set_recv_message_callback(HANDLE_IM_ENGINE engine,
-                                               rcim_recv_message_callback cb,
-                                               HANDLE context);
+RCIMLIB_API int32_t
+rcim_set_recv_message_callback(HANDLE_IM_ENGINE engine,
+                               rcim_recv_message_callback cb,
+                               HANDLE context);
 
 /**
  * @brief 设置发送消息的回调函数
@@ -112,9 +113,10 @@ RCIMLIB_API int rcim_set_recv_message_callback(HANDLE_IM_ENGINE engine,
  * - RCIM_OK 成功
  * - RCIM_ERROR 错误
  */
-RCIMLIB_API int rcim_set_send_message_callback(HANDLE_IM_ENGINE engine,
-                                               rcim_send_message_callback cb,
-                                               HANDLE context);
+RCIMLIB_API int32_t
+rcim_set_send_message_callback(HANDLE_IM_ENGINE engine,
+                               rcim_send_message_callback cb,
+                               HANDLE context);
 
 /**
  * @brief 发送消息
@@ -125,7 +127,8 @@ RCIMLIB_API int rcim_set_send_message_callback(HANDLE_IM_ENGINE engine,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_send_message(HANDLE_IM_ENGINE engine, rc_message* message);
+RCIMLIB_API int32_t rcim_send_message(HANDLE_IM_ENGINE engine,
+                                      rc_message* message);
 
 /**
  * @brief 发送定向消息
@@ -149,16 +152,16 @@ RCIMLIB_API int rcim_send_message(HANDLE_IM_ENGINE engine, rc_message* message);
  *
  * @warning 此方法目前仅支持群组和讨论组。
  */
-RCIMLIB_API int rcim_send_directional_message_content(
-    HANDLE_IM_ENGINE engine,
-    rc_conversation_type conv_type,
-    const char* target_id,
-    const char** user_id_array,
-    int user_count,
-    rc_message_content* content,
-    const char* push_content,
-    const char* push_data,
-    rc_message** out_message);
+RCIMLIB_API int32_t
+rcim_send_directional_message_content(HANDLE_IM_ENGINE engine,
+                                      rc_conversation_type conv_type,
+                                      const char* target_id,
+                                      const char** user_id_array,
+                                      int32_t user_count,
+                                      rc_message_content* content,
+                                      const char* push_content,
+                                      const char* push_data,
+                                      rc_message** out_message);
 
 /**
  * @brief 发送定向消息
@@ -179,12 +182,12 @@ RCIMLIB_API int rcim_send_directional_message_content(
  * @warning 此方法目前仅支持群组和讨论组。
  *
  */
-RCIMLIB_API int rcim_send_directional_message(HANDLE_IM_ENGINE engine,
-                                              rc_message* message,
-                                              const char** user_id_array,
-                                              int user_count,
-                                              const char* push_content,
-                                              const char* push_data);
+RCIMLIB_API int32_t rcim_send_directional_message(HANDLE_IM_ENGINE engine,
+                                                  rc_message* message,
+                                                  const char** user_id_array,
+                                                  int32_t user_count,
+                                                  const char* push_content,
+                                                  const char* push_data);
 
 /**
  * @brief 日志初始化接口
@@ -208,10 +211,10 @@ RCIMLIB_API void rcim_set_log(const char* file_path, enum rcim_log_level level);
  *
  */
 
-RCIMLIB_API int rcim_get_text_message_draft(HANDLE_IM_ENGINE engine,
-                                            rc_conversation_type conv_type,
-                                            const char* target_id,
-                                            char** draft);
+RCIMLIB_API int32_t rcim_get_text_message_draft(HANDLE_IM_ENGINE engine,
+                                                rc_conversation_type conv_type,
+                                                const char* target_id,
+                                                char** draft);
 
 /**
  * @brief 释放指向草稿内容的指针的内存
@@ -230,10 +233,10 @@ RCIMLIB_API void rcim_free_text_message_draft(char** draft);
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_save_text_message_draft(HANDLE_IM_ENGINE engine,
-                                             rc_conversation_type conv_type,
-                                             const char* target_id,
-                                             const char* content);
+RCIMLIB_API int32_t rcim_save_text_message_draft(HANDLE_IM_ENGINE engine,
+                                                 rc_conversation_type conv_type,
+                                                 const char* target_id,
+                                                 const char* content);
 
 /**
  * @brief 删除会话中的草稿信息（用户输入但未发送的暂存消息）
@@ -245,9 +248,10 @@ RCIMLIB_API int rcim_save_text_message_draft(HANDLE_IM_ENGINE engine,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_clear_text_message_draft(HANDLE_IM_ENGINE engine,
-                                              rc_conversation_type conv_type,
-                                              const char* target_id);
+RCIMLIB_API int32_t
+rcim_clear_text_message_draft(HANDLE_IM_ENGINE engine,
+                              rc_conversation_type conv_type,
+                              const char* target_id);
 
 /**
  * @brief 获取当前用户的 id
@@ -259,9 +263,12 @@ RCIMLIB_API int rcim_clear_text_message_draft(HANDLE_IM_ENGINE engine,
  * - RCIM_ERROR 错误
  * 具体错误码描述信息参见 \ref rc_message_error_code 定义
  */
-RCIMLIB_API int rcim_get_user_id(HANDLE_IM_ENGINE engine,
-                                 char* user_id,
-                                 uint32_t user_id_size);
+RCIMLIB_API int32_t rcim_get_user_id(HANDLE_IM_ENGINE engine,
+                                     char* user_id,
+                                     uint32_t user_id_size);
+
+RCIMLIB_API int32_t rcim_set_device_id(HANDLE_IM_ENGINE engine,
+                                       const char* device_id);
 
 #ifdef __cplusplus
 }
