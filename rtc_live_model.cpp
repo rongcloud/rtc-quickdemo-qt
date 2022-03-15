@@ -617,7 +617,7 @@ bool RtcLiveModel::SetDefaultVideoConfig()
     config->setFps(rcrtc::RCRTCVideoFps::FPS_15);
     config->setResolution(rcrtc::RCRTCVideoResolution::RESOLUTION_480_640);
     int32_t minBitrate, maxBitrate;
-    config->getMaxAndMinBitrate(&minBitrate, &maxBitrate);
+    config->getMaxAndMinBitrate(&maxBitrate, &minBitrate);
     config->setMinBitrate(minBitrate);
     config->setMaxBitrate(maxBitrate);
     config->setMirror(false);
@@ -697,7 +697,7 @@ bool RtcLiveModel::PublishedShare(){
     video_config->setResolution(rcrtc::RCRTCVideoResolution::RESOLUTION_1080_1920);
     video_config->setFps(rcrtc::RCRTCVideoFps::FPS_15);
     video_config->getMaxAndMinBitrate(&maxBit, &minBit);
-    video_config->setMaxBitrate(2000);
+    video_config->setMaxBitrate(maxBit);
     video_config->setMinBitrate(minBit);
     rcrtc_engine_->setCustomStreamVideoConfig(stream_tag, video_config);
 
